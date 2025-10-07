@@ -21,7 +21,7 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
 builder.Services.AddSingleton<IProdutoRepository, ProdutoRepository>();
 
-// Configuração do Swagger
+// Configuração do Swagger teste
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
