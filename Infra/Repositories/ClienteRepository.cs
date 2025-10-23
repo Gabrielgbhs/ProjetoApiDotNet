@@ -1,5 +1,5 @@
 using LojaApi.Entities;
-using LojaApi.Repositories.Interfaces;
+using LojaApi.Infra.Repositories.Interfaces;
  
 public class ClienteRepository : IClienteRepository
 {
