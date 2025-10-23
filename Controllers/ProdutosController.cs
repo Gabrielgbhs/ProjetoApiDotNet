@@ -1,4 +1,5 @@
 using LojaApi.Entities;
+using LojaApi.Infra.DTOs;
 using LojaApi.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,13 @@ namespace LojaApi.Controllers
             _produtoService = produtoService;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<List<Produto>> GetAll()
+        {
+            return Ok(_produtoService.ObterTodos());
+        }*/
+        [HttpGet]
+        public ActionResult<List<ProdutoResumoDto>> GetAll()
         {
             return Ok(_produtoService.ObterTodos());
         }

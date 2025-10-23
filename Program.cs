@@ -1,9 +1,11 @@
 // Program.cs teste2
 using LojaApi.Repositories;
-using LojaApi.Repositories.Interfaces;
+using LojaApi.Infra.Mapping;
+using LojaApi.Infra.Repositories.Interfaces;
 using LojaApi.Services;
 using LojaApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using LojaApi.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +17,14 @@ builder.Services.AddControllers();
 // >>>>> CONFIGURAÇÃO DO ENTITY FRAMEWORK CORE E DI <<<<<
 // 1. Configuração do DbContext com PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<LojaApi.Data.LojaContext>(options =>
+builder.Services.AddDbContext<LojaApi.Infra.Context.LojaContext>(options =>
     options.UseNpgsql(connectionString));
 
 // 1. Registro do Serviço
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 // 2. Registro do Repositório
 //    Sempre que alguém (como o ClienteService) pedir a Interface IClienteRepository,
@@ -29,6 +32,10 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IClienteRepository, ClienteDbRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoDbRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaDbRepository>();
+builder.Services.AddScoped<IPedidoRepository, PedidoDBRepository>();
+
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Configuração do Swagger teste
 builder.Services.AddEndpointsApiExplorer();
